@@ -8,11 +8,22 @@
 ## Note: the spanmetrics exporter must be included in the exporters array
 ## if overriding the traces pipeline.
 ##
-#  exporters:
-#    otlphttp/example:
-#      endpoint: <your-endpoint-url>
-#
-#  service:
-#    pipelines:
-#      traces:
-#        exporters: [spanmetrics, otlphttp/example]
+  exporters:
+    file/traces:
+      path: /etc/data/traces.pb
+      format: proto
+    file/metrics:
+      path: /etc/data/metrics.pb
+      format: proto
+    file/logs:
+      path: /etc/data/logs.pb
+      format: proto
+
+  service:
+    pipelines:
+      traces:
+        exporters: [otlp, debug, spanmetrics, file/traces]
+      metrics:
+        exporters: [otlphttp/prometheus, debug, file/metrics]
+      logs:
+        exporters: [otlp/logs, debug, file/logs]

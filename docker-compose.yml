@@ -661,6 +661,7 @@ services:
     volumes:
       - ./src/otelcollector/otelcol-config.yml:/etc/otelcol-config.yml
       - ./src/otelcollector/otelcol-config-extras.yml:/etc/otelcol-config-extras.yml
+      - ./data:/etc/data
     ports:
       - "4317"          # OTLP over gRPC receiver
       - "4318"          # OTLP over HTTP receiver
